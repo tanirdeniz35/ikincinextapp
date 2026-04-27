@@ -8,6 +8,7 @@ export default function Layout({ children }) {
           <Link href="/">Ana Sayfa</Link>
           <Link href="/about">Hakkımızda</Link>
           <Link href="/contact">İletişim</Link>
+          <Link href="/blog">Blog</Link>
         </nav>
       </header>
 
