@@ -1,16 +1,90 @@
 "use client";
 import React from "react";
 import axios from "axios";
-import { useEffect, useState } from "react";
+import { useEffect, useState , useRef} from "react";
 import Link from "next/link";
 
 const blog = () => {
   const [post, setPosts] = useState([]);
+
+const [page,setPage]=useState(1)
+const[loading,setLoading]=useState(false);
+const [hasMore,setHasMore]=useState(true);
+
+const observerRef = useRef(null);
+
   useEffect(() => {
-    axios.get("https://jsonplaceholder.typicode.com/posts").then((response) => {
-      setPosts(response.data);
+
+    if (!hasMore) return;
+    setLoading(true);
+    axios.get("https://jsonplaceholder.typicode.com/posts",
+      {
+            params:
+            {
+              _page:page,
+              _limit:5
+            },
+      }
+    ).then((response) => {
+if(response.data.length===0)
+{
+  setHasMore(false)
+}
+else
+{
+  setPosts((prevPosts)=>
+  {
+      const yeniPostlar=response.data.filter(
+(newPost)=> !prevPosts.some ((oldPost)=>oldPost.id===newPost.id)
+
+      );
+ return [...prevPosts, ...yeniPostlar];
+  });
+setLoading(false);
+ 
+}
+
+
     });
-  }, []);
+  }, [page]);
+
+
+
+useEffect(()=>
+{
+const observer =new IntersectionObserver (
+(entries)=>
+{
+  const target =entries[0];
+if (target.isIntersecting&&!loading&&hasMore)
+{
+  setPage ((prevPage)=>prevPage+1);
+}
+},
+{
+  threshold:1,
+}
+);
+const currentRef=observerRef.current;
+if(currentRef)
+{
+  observer.observe(currentRef);
+}
+return ()=>
+{
+  if (currentRef)
+  {
+    observer.unobserve(currentRef);
+  }
+};
+}
+,[loading,hasMore]
+);
+
+
+
+
+
 
   return (
     <>
@@ -40,6 +114,13 @@ const blog = () => {
             </div>
           ))}
         </div>
+
+<div ref={observerRef} className="text-center py-4">
+{loading && <p>Yükleniyor </p>}
+{!hasMore&& <p>Tüm blog yazıları yükelndi</p>}
+</div>
+
+
       </main>
     </>
   );
