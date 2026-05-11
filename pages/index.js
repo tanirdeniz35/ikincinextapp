@@ -1,7 +1,12 @@
 import React from "react";
+import HomeSlider from "../components/HomeSlider";
 
 const index = () => {
-  return <div>index</div>;
+  return (
+    <>
+      <HomeSlider />
+    </>
+  );
 };
 
 export default index;

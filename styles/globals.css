@@ -14,12 +14,6 @@ a {
   color: #222;
 }
 
-.site-header {
-  padding: 16px;
-  border-bottom: 1px solid #ddd;
-  background-color: #f8f8f8;
-}
-
 .site-nav {
   display: flex;
   gap: 16px;
@@ -30,8 +24,128 @@ a {
   min-height: 80vh;
 }
 
-.site-footer {
-  padding: 16px;
-  border-top: 1px solid #ddd;
+.home-slider {
+  position: relative;
+  width: 100%;
+  height: 400px;
+  overflow: hidden;
+}
+.slider-image {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+.home-slider::after {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.4);
+}
+.slider-content {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  color: #fff;
+  text-align: center;
+}
+.slider-button {
+  position: absolute;
+  top: 50%;
+
+  z-index: 3;
+  transform: translateY(-50%);
+  margin-top: 16px;
+  padding: 8px 16px;
+  background-color: #0070f3;
+  color: #fff;
+  border: none;
+  cursor: pointer;
+}
+.slider-button:hover {
+  background-color: #005bb5;
+}
+.slider-button.prev {
+  left: 16px;
+}
+.slider-button.next {
+  right: 16px;
+}
+
+.site-header {
+  padding: 0;
+  border-bottom: 1px solid #ddd;
   background-color: #f8f8f8;
+}
+.top-navbar {
+  background-color: #f8f8f8;
+  border-bottom: 1px solid #ddd;
+}
+
+.nav-button {
+  display: inline-flex;
+  padding: 8px 16px;
+  align-items: center;
+  justify-content: center;
+  border-radius: 8px;
+  font-size: 15px;
+  font-weight: 500;
+  text-decoration: none;
+  transition: all 0.2s ease;
+  color: #222;
+  background-color: #ffffff;
+  border: 1px solid #ddd;
+}
+.nav-button:hover {
+  background-color: #f0f0f0;
+  border-color: #ccc;
+  color: #000;
+}
+
+.site-footer {
+  margin-top: auto;
+  padding: 40px 32px;
+  background: linear-gradient(135deg, #1f2937, #111827);
+  color: #f9fafb;
+  border-top: none;
+
+  display: grid;
+  grid-template-columns: 2fr 1fr;
+  gap: 40px;
+}
+.footer-section {
+  max-width: 700px;
+}
+.footer-section h4 {
+  margin-bottom: 16px;
+  font-size: 18px;
+  font-weight: 600;
+  color: #ffffff;
+  position: relative;
+}
+.footer-section h4::after {
+  content: "";
+  position: absolute;
+  bottom: -8px;
+  left: 0;
+  width: 40px;
+  height: 2px;
+  background-color: #0070f3;
+}
+.footer-section p {
+  line-height: 1.6;
+  color: #d1d5db;
+  font-size: 15px;
+  margin: 0;
+}
+
+.footer-section:nth-child(2) {
+  background-color: rgba(255, 255, 255, 0.06);
+  padding: 16px;
+  border-radius: 12px;
+  border: 1px solid rgba(2555, 255, 255, 0.1);
 }
